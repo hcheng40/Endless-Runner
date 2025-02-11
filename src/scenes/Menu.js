@@ -1,93 +1,74 @@
 class Menu extends Phaser.Scene {
     constructor() {
-        super("menuScene")
+        super('menuScene')
     }
 
     preload() {
         // load images/tile sprites
-        this.load.image("rocket", "./assets/rocket.png")
-        this.load.image("spaceship", "./assets/spaceship.png")
-        this.load.image("starfield", "./assets/starfield.png")
+        this.load.image('groundScroll', './assets/ground.png')
+        this.load.image('background', './assets/background.png')
+        this.load.image('cloud', './assets/cloud.png')
+        this.load.image('circle', './assets/circle.png')
+        this.load.image('plat', './assets/plat.png')
 
         // load spritesheet
-        this.load.spritesheet("explosion", "./assets/explosion.png", {
-            frameWidth: 64,
-            frameHeight: 32,
+        this.load.spritesheet('froggy', './assets/froggg-spritesheet.png', {
+            frameWidth: 53,
+            frameHeight: 64,
             startFrame: 0,
-            endFrame: 9
+            endFrame: 1
+        })
+        this.load.spritesheet('bug', './assets/bug-spritesheet.png', {
+            frameWidth: 44,
+            frameHeight: 24,
+            startFrame: 0,
+            endFrame: 1
         })
 
         // load audio
+        this.load.audio('bgm', './assets/bg-music.wav')
         this.load.audio('sfx-select', './assets/sfx-select.wav')
-        this.load.audio('sfx-explosion', './assets/sfx-explosion.wav')
         this.load.audio('sfx-shot', './assets/sfx-shot.wav')
+        this.load.audio('sfx-die', './assets/sfx-die.wav')
+        this.load.audio('sfx-die2', './assets/sfx-die2.wav')
+        this.load.audio('sfx-jump', './assets/sfx-jump.wav')
     }
 
     create() {
-        this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0)
-
-        // animation configuration
-        this.anims.create({
-            key: 'explode',
-            frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0 }),
-            frameRate: 30
-        })
+        // background
+        // this.Background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setOrigin(0)
 
         let menuConfig = {
             fontFamily: 'Courier',
-            fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            fontSize: '50px',
+            fontStyle: 'bold',
+            backgroundColor: '#C3B594',
+            color: '#A55424',
             align: 'center',
             padding: {
-                top: 5,
-                bottom: 5,
+                top: 10,
+                bottom: 10,
             },
             fixedWidth: 0
         }
-
         // display menu text
-        this.add.text(game.config.width / 2, game.config.height / 2 - borderUISize - borderPadding * 2, 'ROCKET PATROL', menuConfig).setOrigin(0.5)
-        this.add.text(game.config.width / 2, game.config.height / 2, 'Use ←(A) →(D) arrows to move\nENTER(F) to fire', menuConfig).setOrigin(0.5)
-        menuConfig.backgroundColor = '#00FF00'
-        menuConfig.color = '#000'
-        this.add.text(game.config.width / 2, game.config.height / 2 + borderUISize + borderPadding * 2, 'Press ← for Novice or → for Expert', menuConfig).setOrigin(0.5)
-        this.add.text(game.config.width / 2, game.config.height / 2 + borderUISize * 2 + borderPadding * 4, 'Press ↑ for Single Player\n or ↓ for Two Players', menuConfig).setOrigin(0.5)
-
-        // define keys
-        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
-        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
-
-        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
-        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
+        this.add.text(game.config.width / 2, game.config.height / 2 - borderUISize - borderPadding * 2, 'FROGGY DASH', menuConfig).setOrigin(0.5)
+        menuConfig.fontSize = '34px'
+        this.add.text(game.config.width / 2, game.config.height / 2, 'Use SPACE to jump and mouse left-click to fire', menuConfig).setOrigin(0.5)
+        // menuConfig.backgroundColor = '#00FF00'
+        // menuConfig.color = '#000'
+        // this.add.text(game.config.width / 2, game.config.height / 2 + borderUISize + borderPadding * 2, 'Press ← for Novice or → for Expert', menuConfig).setOrigin(0.5)
     }
 
     update() {
-        if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
-            // easy mode
+        // mouse control
+        const p = game.input.activePointer;
+        if (p.isDown) {
             game.settings = {
-                spaceshipSpeed: 3,
-                gameTimer: 60000
+                gameSpeed: 3
             }
             this.sound.play('sfx-select')
             this.scene.start('playScene')
-        }
-        if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
-            // hard mode
-            game.settings = {
-                spaceshipSpeed: 4,
-                gameTimer: 45000
-            }
-            this.sound.play('sfx-select')
-            this.scene.start('playScene')
-        }
-
-        // two-player mode
-        if (Phaser.Input.Keyboard.JustDown(keyUP)) {
-            twoPlayer = false
-        }
-        if (Phaser.Input.Keyboard.JustDown(keyDOWN)) {
-            twoPlayer = true
         }
     }
 }
