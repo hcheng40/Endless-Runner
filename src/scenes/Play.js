@@ -108,21 +108,21 @@ class Play extends Phaser.Scene {
         this.physics.add.overlap(this.tongueTip, this.bug1, () => {
             this.score += 10
             this.scoreText.text = this.score
-            this.bug1.x = game.config.width + Phaser.Math.Between(400, 900)
+            this.bug1.x = game.config.width + Phaser.Math.Between(300, 900)
         })
         this.physics.add.overlap(this.tongueTip, this.bug2, () => {
             this.score += 10
             this.scoreText.text = this.score
-            this.bug2.x = game.config.width + Phaser.Math.Between(250, 900)
+            this.bug2.x = game.config.width + Phaser.Math.Between(200, 750)
         })
         this.physics.add.overlap(this.tongueTip, this.bug3, () => {
             this.score += 10
             this.scoreText.text = this.score
-            this.bug3.x = game.config.width + Phaser.Math.Between(400, 900)
+            this.bug3.x = game.config.width + Phaser.Math.Between(300, 1200)
         })
 
         // speed increase after 15 seconds
-        this.clock = this.time.addEvent({ delay: 15000, callback: this.onEvent, callbackScope: this, loop: true })
+        this.clock = this.time.addEvent({ delay: 3000, callback: this.onEvent, callbackScope: this, loop: true })
 
         // debug key listener (assigned to D key)
         this.input.keyboard.on('keydown-D', function () {
@@ -148,13 +148,13 @@ class Play extends Phaser.Scene {
 
         // bugs reset
         if (this.bug1.x <= 0 - this.bug1.width) {
-            this.bug1.x = game.config.width + Phaser.Math.Between(400, 900)
+            this.bug1.x = game.config.width + Phaser.Math.Between(300, 900)
         }
         if (this.bug2.x <= 0 - this.bug2.width) {
-            this.bug2.x = game.config.width + Phaser.Math.Between(250, 900)
+            this.bug2.x = game.config.width + Phaser.Math.Between(150, 900)
         }
         if (this.bug3.x <= 0 - this.bug3.width) {
-            this.bug3.x = game.config.width + Phaser.Math.Between(400, 900)
+            this.bug3.x = game.config.width + Phaser.Math.Between(300, 900)
         }
 
         // plat reset
@@ -219,7 +219,8 @@ class Play extends Phaser.Scene {
         }, this)
 
         // jump
-        if (Phaser.Input.Keyboard.JustDown(cursors.space) && this.froggy.body.touching.down && !this.isFiring) {
+        // if (Phaser.Input.Keyboard.JustDown(cursors.space) && this.froggy.body.touching.down && !this.isFiring) {
+        if (Phaser.Input.Keyboard.JustDown(cursors.space) && this.froggy.body.touching.down) {
             this.froggy.body.velocity.y = this.JUMP_VELOCITY
             this.sound.play('sfx-jump')
         }
@@ -235,10 +236,10 @@ class Play extends Phaser.Scene {
     }
 
     onEvent() {
-        game.settings.gameSpeed += 1
-        this.bug1.body.velocity.x -= 20
-        this.bug2.body.velocity.x -= 20
-        this.bug3.body.velocity.x -= 20
-        this.plat.body.velocity.x -= 20
+        game.settings.gameSpeed += 0.1
+        this.bug1.body.velocity.x -= 5
+        this.bug2.body.velocity.x -= 5
+        this.bug3.body.velocity.x -= 5
+        this.plat.body.velocity.x -= 7
     }
 }
