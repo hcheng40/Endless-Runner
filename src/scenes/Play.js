@@ -181,7 +181,7 @@ class Play extends Phaser.Scene {
                 this.froggy.setFrame(1)
 
                 // tongue animation
-                const SEP = 10
+                const SEP = 20
                 for (let i = 1; i <= SEP; i++) {
                     this.time.delayedCall(i * 250 / SEP, () => {
                         // tongue position
