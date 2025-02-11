@@ -66,8 +66,9 @@ class Menu extends Phaser.Scene {
 
     update() {
         // mouse control
+        cursors = this.input.keyboard.createCursorKeys()
         const p = game.input.activePointer;
-        if (p.isDown) {
+        if (p.isDown || Phaser.Input.Keyboard.JustDown(cursors.space)) {
             game.settings = {
                 gameSpeed: 3
             }

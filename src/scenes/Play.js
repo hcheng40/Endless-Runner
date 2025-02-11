@@ -15,7 +15,7 @@ class Play extends Phaser.Scene {
         // background
         this.Background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setOrigin(0)
         // bgm
-        this.bgm = this.sound.add('bgm', { loop: true }).setVolume(0.03).setRate(0.75)
+        this.bgm = this.sound.add('bgm', { loop: true }).setVolume(0.2).setRate(0.75)
         this.bgm.play()
 
         // clouds
