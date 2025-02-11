@@ -10,6 +10,8 @@ class Menu extends Phaser.Scene {
         this.load.image('cloud', './assets/cloud.png')
         this.load.image('circle', './assets/circle.png')
         this.load.image('plat', './assets/plat.png')
+        this.load.image('dead', './assets/froggg-dead.png')
+        this.load.image('light', './assets/stagelight.png')
 
         // load spritesheet
         this.load.spritesheet('froggy', './assets/froggg-spritesheet.png', {
@@ -48,6 +50,8 @@ class Menu extends Phaser.Scene {
             padding: {
                 top: 10,
                 bottom: 10,
+                left: 10,
+                right: 10,
             },
             fixedWidth: 0
         }
@@ -55,9 +59,7 @@ class Menu extends Phaser.Scene {
         this.add.text(game.config.width / 2, game.config.height / 2 - borderUISize - borderPadding * 2, 'FROGGY DASH', menuConfig).setOrigin(0.5)
         menuConfig.fontSize = '34px'
         this.add.text(game.config.width / 2, game.config.height / 2, 'Use SPACE to jump and mouse left-click to fire', menuConfig).setOrigin(0.5)
-        // menuConfig.backgroundColor = '#00FF00'
-        // menuConfig.color = '#000'
-        // this.add.text(game.config.width / 2, game.config.height / 2 + borderUISize + borderPadding * 2, 'Press ← for Novice or → for Expert', menuConfig).setOrigin(0.5)
+        
     }
 
     update() {

@@ -27,10 +27,15 @@ class GameOver extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        this.scoreText = this.add.text(game.config.width / 2, game.config.height / 2 - 100, 'GAMEOVER!!', scoreConfig).setOrigin(0.5)
-        this.scoreText = this.add.text(game.config.width / 2, game.config.height / 2, 'SCORE: ' + this.score, scoreConfig).setOrigin(0.5)
+        this.gameOverText = this.add.text(game.config.width / 2, game.config.height / 2 - 250, 'GAMEOVER!!', scoreConfig).setOrigin(0.5)
+        scoreConfig.fixedWidth = this.gameOverText.width
+        this.scoreText = this.add.text(game.config.width / 2, game.config.height / 2 - 180, 'SCORE: ' + this.score, scoreConfig).setOrigin(0.5)
         scoreConfig.fontSize = '40px'
-        this.add.text(game.config.width / 2, game.config.height / 2 + 200, 'Press (R) to restart or (M) to the menu', scoreConfig).setOrigin(0.5)
+        scoreConfig.fixedWidth = 0
+        this.add.text(game.config.width / 2, game.config.height / 2 + 300, 'Press (R) to restart or (M) to the menu', scoreConfig).setOrigin(0.5)
+        this.dead = this.add.sprite(game.config.width / 2, game.config.height / 2 + 65, 'dead').setOrigin(0.5, 0.5).setScale(3).setDepth(0)
+        this.light = this.add.sprite(game.config.width / 2, game.config.height / 2 + 65, 'light').setOrigin(0.5, 0.5).setScale(3).setAlpha(0.4).setDepth(1)
+        this.add.rectangle(0, 0, game.config.width, game.config.height, 0x112222).setOrigin(0).setDepth(-1)
     }
 
     update() {

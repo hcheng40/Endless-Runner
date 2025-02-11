@@ -171,7 +171,8 @@ class Play extends Phaser.Scene {
 
         // left click fire
         this.input.on('pointerdown', (pointer) => {
-            if (pointer.leftButtonDown() && !this.isFiring && this.froggy.body.touching.down) {
+            //  if (pointer.leftButtonDown() && !this.isFiring && this.froggy.body.touching.down) {
+            if (pointer.leftButtonDown() && !this.isFiring) {
                 // start firing
                 this.isFiring = true
                 this.tongue.visible = !this.tongue.visible
